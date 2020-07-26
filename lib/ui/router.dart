@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanager/ui/views/home_view.dart';
+import 'package:moneymanager/ui/views/spash_view.dart';
 
 const String initialRoute = "login";
 
@@ -7,7 +7,7 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case '/':
-        return MaterialPageRoute(builder: (_) => HomeView());
+        return MaterialPageRoute(builder: (_) => SpashView());
       // case 'login':
       //   return MaterialPageRoute(builder: (_) => LoginView());
       // case 'post':
