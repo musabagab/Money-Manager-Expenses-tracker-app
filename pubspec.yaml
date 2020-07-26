@@ -31,7 +31,7 @@ dependencies:
   provider: ^2.0.1
   get_it:
   splashscreen: ^1.2.0
-  configurable_expansion_tile: ^1.0.0
+  overlay_container: ^0.0.4+1
 
 dev_dependencies:
   flutter_test:

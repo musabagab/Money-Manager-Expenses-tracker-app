@@ -3,6 +3,8 @@ import 'package:moneymanager/core/viewmodels/home_model.dart';
 
 import 'package:moneymanager/ui/views/base_view.dart';
 import 'package:moneymanager/ui/widgets/app_drawer.dart';
+import 'package:moneymanager/ui/widgets/busy_overlay.dart';
+import 'package:overlay_container/overlay_container.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -14,11 +16,70 @@ class HomeView extends StatelessWidget {
         drawer: AppDrawer(context),
         body: Stack(
           children: <Widget>[
-            model.isCollabsed ? buildGridView(model) : Container()
+            ListView(
+              children: <Widget>[
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+                Text('Transactions'),
+              ],
+            ),
+            model.isCollabsed
+                ? buildOverlayPicker(model.isCollabsed, model, context)
+                : Container(),
           ],
         ),
       ),
     );
+  }
+
+  buildOverlayPicker(showOrHide, HomeModel model, BuildContext context) {
+    return OverlayContainer(
+        show: showOrHide,
+        // Let's position this overlay to the right of the button.
+        position: OverlayContainerPosition(
+          // Left position.
+          0,
+          // Bottom position.
+          0,
+        ),
+        // The content inside the overlay.
+        child: Container(
+          height: 200,
+          width: MediaQuery.of(context).size.width,
+          margin: const EdgeInsets.only(top: 5),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Colors.grey[300],
+                blurRadius: 3,
+                spreadRadius: 10,
+              )
+            ],
+          ),
+          child: buildGridView(model),
+        ));
   }
 
   Widget buildGridView(HomeModel model) {

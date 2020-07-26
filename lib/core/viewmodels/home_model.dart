@@ -21,9 +21,9 @@ class HomeModel extends BaseModel {
 
   bool isCollabsed = false;
 
-  String appBarTitle;
-
-  int selectedMonthIndex = DateTime.now().month - 1;
+  String appBarTitle; // selected month
+  String selectedYear;
+  int selectedMonthIndex; // from month list above
 
   titleClicked() {
     isCollabsed = !isCollabsed;
@@ -41,6 +41,7 @@ class HomeModel extends BaseModel {
   }
 
   init() {
+    selectedMonthIndex = DateTime.now().month - 1;
     appBarTitle = months[DateTime.now().month - 1].toUpperCase();
   }
 }
