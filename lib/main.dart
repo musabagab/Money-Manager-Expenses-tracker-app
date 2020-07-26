@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/locator.dart';
 import 'package:moneymanager/ui/router.dart';
+import 'package:moneymanager/ui/shared/app_colors.dart';
 
 void main() {
   setupLocator();
@@ -12,7 +13,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: backgroundColor,
+        accentColor: Colors.blue,
+      ),
       initialRoute: '/',
       onGenerateRoute: Router.generateRoute,
     );

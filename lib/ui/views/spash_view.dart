@@ -1,24 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:moneymanager/core/viewmodels/home_model.dart';
 import 'package:moneymanager/ui/shared/app_colors.dart';
 import 'package:moneymanager/ui/views/home_view.dart';
 import 'package:splashscreen/splashscreen.dart';
 
-import 'base_view.dart';
-
 class SpashView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BaseView<HomeModel>(
-      builder: (context, model, child) => Scaffold(
-          backgroundColor: backgroundColor,
-          body: SafeArea(child: buildSpashScreen())),
-    );
+    return Scaffold(
+        backgroundColor: backgroundColor,
+        body: SafeArea(child: buildSpashScreen()));
   }
 
   buildSpashScreen() {
     return SplashScreen(
-        seconds: 100,
+        seconds: 2,
         navigateAfterSeconds: HomeView(),
         title: new Text(
           'Money Manager',
