@@ -6,6 +6,7 @@ class Transactions extends Table {
   TextColumn get day => text()(); // day
   TextColumn get month => text()(); // month => feb (example)
   TextColumn get assetpath => text()(); // asset path / photo
+  TextColumn get memo => text()(); // asset path / photo
   IntColumn get id => integer().autoIncrement()();
   IntColumn get amount => integer()(); // 300 or 200
 }

@@ -10,7 +10,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeModel>(
-      onModelReady: (model) => model.init(),
+      onModelReady: (model) async => model.init(),
       builder: (context, model, child) => Scaffold(
         appBar: getAppBar(model.appBarTitle, model),
         drawer: AppDrawer(context),
@@ -18,33 +18,7 @@ class HomeView extends StatelessWidget {
         body: Stack(
           children: <Widget>[
             ListView(
-              children: <Widget>[
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-                Text('Transactions'),
-              ],
-            ),
+                children: model.transactions.map((e) => Text(e.day)).toList()),
             model.isCollabsed
                 ? buildOverlayPicker(model.isCollabsed, model, context)
                 : Container(),

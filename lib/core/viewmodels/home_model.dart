@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:moneymanager/core/database/moor_database.dart';
+import 'package:moneymanager/core/services/moordatabase_service.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
+import '../../locator.dart';
+
 class HomeModel extends BaseModel {
-  // final AuthenticationService _authenticationService =
-  //     locator<AuthenticationService>();
+  final MoorDatabaseService _moorDatabaseService =
+      locator<MoorDatabaseService>();
 
   List months = [
     'Jan',
@@ -20,8 +24,8 @@ class HomeModel extends BaseModel {
     'Dec'
   ];
 
+  List<Transaction> transactions = List<Transaction>();
   bool isCollabsed = false;
-
   String appBarTitle; // selected month
   String selectedYear;
   int selectedMonthIndex; // from month list above
@@ -51,8 +55,10 @@ class HomeModel extends BaseModel {
     }
   }
 
-  init() {
+  init() async {
     selectedMonthIndex = DateTime.now().month - 1;
     appBarTitle = months[DateTime.now().month - 1].toUpperCase();
+    transactions = await _moorDatabaseService.getAllTransactions();
+    notifyListeners();
   }
 }

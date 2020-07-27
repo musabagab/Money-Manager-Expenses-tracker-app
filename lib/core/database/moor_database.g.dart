@@ -12,6 +12,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
   final String day;
   final String month;
   final String assetpath;
+  final String memo;
   final int id;
   final int amount;
   Transaction(
@@ -19,6 +20,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       @required this.day,
       @required this.month,
       @required this.assetpath,
+      @required this.memo,
       @required this.id,
       @required this.amount});
   factory Transaction.fromData(Map<String, dynamic> data, GeneratedDatabase db,
@@ -33,6 +35,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}month']),
       assetpath: stringType
           .mapFromDatabaseResponse(data['${effectivePrefix}assetpath']),
+      memo: stringType.mapFromDatabaseResponse(data['${effectivePrefix}memo']),
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       amount: intType.mapFromDatabaseResponse(data['${effectivePrefix}amount']),
     );
@@ -52,6 +55,9 @@ class Transaction extends DataClass implements Insertable<Transaction> {
     if (!nullToAbsent || assetpath != null) {
       map['assetpath'] = Variable<String>(assetpath);
     }
+    if (!nullToAbsent || memo != null) {
+      map['memo'] = Variable<String>(memo);
+    }
     if (!nullToAbsent || id != null) {
       map['id'] = Variable<int>(id);
     }
@@ -70,6 +76,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       assetpath: assetpath == null && nullToAbsent
           ? const Value.absent()
           : Value(assetpath),
+      memo: memo == null && nullToAbsent ? const Value.absent() : Value(memo),
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       amount:
           amount == null && nullToAbsent ? const Value.absent() : Value(amount),
@@ -84,6 +91,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       day: serializer.fromJson<String>(json['day']),
       month: serializer.fromJson<String>(json['month']),
       assetpath: serializer.fromJson<String>(json['assetpath']),
+      memo: serializer.fromJson<String>(json['memo']),
       id: serializer.fromJson<int>(json['id']),
       amount: serializer.fromJson<int>(json['amount']),
     );
@@ -96,6 +104,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       'day': serializer.toJson<String>(day),
       'month': serializer.toJson<String>(month),
       'assetpath': serializer.toJson<String>(assetpath),
+      'memo': serializer.toJson<String>(memo),
       'id': serializer.toJson<int>(id),
       'amount': serializer.toJson<int>(amount),
     };
@@ -106,6 +115,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           String day,
           String month,
           String assetpath,
+          String memo,
           int id,
           int amount}) =>
       Transaction(
@@ -113,6 +123,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
         day: day ?? this.day,
         month: month ?? this.month,
         assetpath: assetpath ?? this.assetpath,
+        memo: memo ?? this.memo,
         id: id ?? this.id,
         amount: amount ?? this.amount,
       );
@@ -123,6 +134,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           ..write('day: $day, ')
           ..write('month: $month, ')
           ..write('assetpath: $assetpath, ')
+          ..write('memo: $memo, ')
           ..write('id: $id, ')
           ..write('amount: $amount')
           ..write(')'))
@@ -137,7 +149,9 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           $mrjc(
               month.hashCode,
               $mrjc(
-                  assetpath.hashCode, $mrjc(id.hashCode, amount.hashCode))))));
+                  assetpath.hashCode,
+                  $mrjc(
+                      memo.hashCode, $mrjc(id.hashCode, amount.hashCode)))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -146,6 +160,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           other.day == this.day &&
           other.month == this.month &&
           other.assetpath == this.assetpath &&
+          other.memo == this.memo &&
           other.id == this.id &&
           other.amount == this.amount);
 }
@@ -155,6 +170,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
   final Value<String> day;
   final Value<String> month;
   final Value<String> assetpath;
+  final Value<String> memo;
   final Value<int> id;
   final Value<int> amount;
   const TransactionsCompanion({
@@ -162,6 +178,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     this.day = const Value.absent(),
     this.month = const Value.absent(),
     this.assetpath = const Value.absent(),
+    this.memo = const Value.absent(),
     this.id = const Value.absent(),
     this.amount = const Value.absent(),
   });
@@ -170,18 +187,21 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     @required String day,
     @required String month,
     @required String assetpath,
+    @required String memo,
     this.id = const Value.absent(),
     @required int amount,
   })  : type = Value(type),
         day = Value(day),
         month = Value(month),
         assetpath = Value(assetpath),
+        memo = Value(memo),
         amount = Value(amount);
   static Insertable<Transaction> custom({
     Expression<String> type,
     Expression<String> day,
     Expression<String> month,
     Expression<String> assetpath,
+    Expression<String> memo,
     Expression<int> id,
     Expression<int> amount,
   }) {
@@ -190,6 +210,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
       if (day != null) 'day': day,
       if (month != null) 'month': month,
       if (assetpath != null) 'assetpath': assetpath,
+      if (memo != null) 'memo': memo,
       if (id != null) 'id': id,
       if (amount != null) 'amount': amount,
     });
@@ -200,6 +221,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
       Value<String> day,
       Value<String> month,
       Value<String> assetpath,
+      Value<String> memo,
       Value<int> id,
       Value<int> amount}) {
     return TransactionsCompanion(
@@ -207,6 +229,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
       day: day ?? this.day,
       month: month ?? this.month,
       assetpath: assetpath ?? this.assetpath,
+      memo: memo ?? this.memo,
       id: id ?? this.id,
       amount: amount ?? this.amount,
     );
@@ -227,6 +250,9 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     if (assetpath.present) {
       map['assetpath'] = Variable<String>(assetpath.value);
     }
+    if (memo.present) {
+      map['memo'] = Variable<String>(memo.value);
+    }
     if (id.present) {
       map['id'] = Variable<int>(id.value);
     }
@@ -243,6 +269,7 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
           ..write('day: $day, ')
           ..write('month: $month, ')
           ..write('assetpath: $assetpath, ')
+          ..write('memo: $memo, ')
           ..write('id: $id, ')
           ..write('amount: $amount')
           ..write(')'))
@@ -303,6 +330,18 @@ class $TransactionsTable extends Transactions
     );
   }
 
+  final VerificationMeta _memoMeta = const VerificationMeta('memo');
+  GeneratedTextColumn _memo;
+  @override
+  GeneratedTextColumn get memo => _memo ??= _constructMemo();
+  GeneratedTextColumn _constructMemo() {
+    return GeneratedTextColumn(
+      'memo',
+      $tableName,
+      false,
+    );
+  }
+
   final VerificationMeta _idMeta = const VerificationMeta('id');
   GeneratedIntColumn _id;
   @override
@@ -326,7 +365,7 @@ class $TransactionsTable extends Transactions
 
   @override
   List<GeneratedColumn> get $columns =>
-      [type, day, month, assetpath, id, amount];
+      [type, day, month, assetpath, memo, id, amount];
   @override
   $TransactionsTable get asDslTable => this;
   @override
@@ -361,6 +400,12 @@ class $TransactionsTable extends Transactions
           assetpath.isAcceptableOrUnknown(data['assetpath'], _assetpathMeta));
     } else if (isInserting) {
       context.missing(_assetpathMeta);
+    }
+    if (data.containsKey('memo')) {
+      context.handle(
+          _memoMeta, memo.isAcceptableOrUnknown(data['memo'], _memoMeta));
+    } else if (isInserting) {
+      context.missing(_memoMeta);
     }
     if (data.containsKey('id')) {
       context.handle(_idMeta, id.isAcceptableOrUnknown(data['id'], _idMeta));
