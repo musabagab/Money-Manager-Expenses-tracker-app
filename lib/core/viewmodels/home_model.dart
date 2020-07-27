@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
 class HomeModel extends BaseModel {
@@ -38,6 +39,16 @@ class HomeModel extends BaseModel {
     titleClicked();
 
     notifyListeners();
+  }
+
+  getColor(month) {
+    int monthIndex = months.indexOf(month);
+    // color the selected month with
+    if (monthIndex == selectedMonthIndex) {
+      return Colors.orange;
+    } else {
+      return Colors.black;
+    }
   }
 
   init() {

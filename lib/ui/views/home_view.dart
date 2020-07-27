@@ -3,6 +3,7 @@ import 'package:moneymanager/core/viewmodels/home_model.dart';
 
 import 'package:moneymanager/ui/views/base_view.dart';
 import 'package:moneymanager/ui/widgets/app_drawer.dart';
+import 'package:moneymanager/ui/widgets/common_widgets/app_fab.dart';
 import 'package:overlay_container/overlay_container.dart';
 
 class HomeView extends StatelessWidget {
@@ -13,6 +14,7 @@ class HomeView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: getAppBar(model.appBarTitle, model),
         drawer: AppDrawer(context),
+        floatingActionButton: AppFAB(),
         body: Stack(
           children: <Widget>[
             ListView(
@@ -94,7 +96,7 @@ class HomeView extends StatelessWidget {
             child: Text(
               month,
               style: TextStyle(
-                color: getColor(month, model.selectedMonthIndex, model.months),
+                color: model.getColor(month),
               ),
             ),
           ),
@@ -131,15 +133,5 @@ class HomeView extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  getColor(month, int selectedMonthIndex, List months) {
-    int monthIndex = months.indexOf(month);
-
-    if (monthIndex == selectedMonthIndex) {
-      return Colors.orange;
-    } else {
-      return Colors.black;
-    }
   }
 }

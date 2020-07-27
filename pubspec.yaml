@@ -32,10 +32,14 @@ dependencies:
   get_it:
   splashscreen: ^1.2.0
   overlay_container: ^0.0.4+1
+  moor_flutter: ^3.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+    
+  moor_generator: ^3.2.0 
+  build_runner: ^1.10.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
