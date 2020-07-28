@@ -13,7 +13,7 @@ class SummaryWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Card(
-        elevation: 8,
+        elevation: 4,
         child: Padding(
           padding: const EdgeInsets.all(32.0),
           child: Row(

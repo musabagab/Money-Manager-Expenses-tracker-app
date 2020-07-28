@@ -10,6 +10,7 @@ class EmptyTransactionsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        UIHelper.verticalSpaceLarge(),
         Image.asset(
           'assets/icons/no-money.png',
           width: 120,

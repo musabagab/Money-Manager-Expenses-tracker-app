@@ -10,6 +10,7 @@ import 'package:moneymanager/ui/widgets/home_view_widgets/app_bar_title_widget.d
 import 'package:moneymanager/ui/widgets/home_view_widgets/empty_transaction_widget.dart';
 import 'package:moneymanager/ui/widgets/home_view_widgets/month_year_picker_widget.dart';
 import 'package:moneymanager/ui/widgets/home_view_widgets/summary_widget.dart';
+import 'package:moneymanager/ui/widgets/home_view_widgets/transactions_listview_widget.dart';
 
 class HomeView extends StatelessWidget {
   @override
@@ -55,13 +56,10 @@ class HomeView extends StatelessWidget {
   }
 
   buildList(List<Transaction> transactions) {
-    return transactions.length == 0
+    return transactions.length != 0
         ? EmptyTransactionsWidget()
-        : Flexible(
-            child: ListView(
-              padding: EdgeInsets.all(8),
-              children: transactions.map((e) => Text(e.day)).toList(),
-            ),
+        : TransactionsListView(
+            transactions: transactions,
           );
   }
 }
