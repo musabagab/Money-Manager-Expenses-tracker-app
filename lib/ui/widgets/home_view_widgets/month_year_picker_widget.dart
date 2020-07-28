@@ -25,6 +25,7 @@ class PickMonthAndYearOverlay extends StatelessWidget {
         // The content inside the overlay.
         child: Container(
           height: 200,
+          padding: EdgeInsets.all(8),
           width: MediaQuery.of(context).size.width,
           margin: const EdgeInsets.only(top: 5),
           decoration: BoxDecoration(
@@ -44,6 +45,7 @@ class PickMonthAndYearOverlay extends StatelessWidget {
   Widget buildGridView(HomeModel model) {
     return GridView.count(
       crossAxisCount: 6,
+
       // Generate 100 widgets that display their index in the List.
       children: model.months.map((month) {
         return InkWell(

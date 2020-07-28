@@ -19,6 +19,7 @@ class EmptyTransactionsWidget extends StatelessWidget {
         UIHelper.verticalSpaceMedium(),
         Text(
           'No transactions\nTap + to add one.',
+          textAlign: TextAlign.start,
           style: TextStyle(color: Colors.grey, fontSize: 18),
         ),
       ],

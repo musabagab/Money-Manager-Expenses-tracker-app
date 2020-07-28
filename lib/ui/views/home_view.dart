@@ -4,7 +4,7 @@ import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/core/viewmodels/home_model.dart';
 
 import 'package:moneymanager/ui/views/base_view.dart';
-import 'package:moneymanager/ui/widgets/app_drawer.dart';
+import 'package:moneymanager/ui/widgets/common_widgets/app_drawer.dart';
 import 'package:moneymanager/ui/widgets/common_widgets/app_fab.dart';
 import 'package:moneymanager/ui/widgets/home_view_widgets/app_bar_title_widget.dart';
 import 'package:moneymanager/ui/widgets/home_view_widgets/empty_transaction_widget.dart';
