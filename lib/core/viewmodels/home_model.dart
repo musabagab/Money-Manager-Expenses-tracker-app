@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/core/database/moor_database.dart';
+import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/core/services/moordatabase_service.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
@@ -30,18 +31,16 @@ class HomeModel extends BaseModel {
   String selectedYear;
   int selectedMonthIndex; // from month list above
 
-  titleClicked() {
-    isCollabsed = !isCollabsed;
-    notifyListeners();
-  }
-
   monthClicked(String clickedMonth) {
     selectedMonthIndex = months.indexOf(clickedMonth);
 
     appBarTitle = clickedMonth;
 
     titleClicked();
+  }
 
+  titleClicked() {
+    isCollabsed = !isCollabsed;
     notifyListeners();
   }
 
@@ -57,8 +56,14 @@ class HomeModel extends BaseModel {
 
   init() async {
     selectedMonthIndex = DateTime.now().month - 1;
-    appBarTitle = months[DateTime.now().month - 1].toUpperCase();
+    appBarTitle = months[DateTime.now().month - 1];
+
+    setState(ViewState.Busy);
+    notifyListeners();
+
     transactions = await _moorDatabaseService.getAllTransactions();
+
+    setState(ViewState.Idle);
     notifyListeners();
   }
 }

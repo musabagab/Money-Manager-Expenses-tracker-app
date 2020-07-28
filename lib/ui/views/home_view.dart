@@ -1,85 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/core/viewmodels/home_model.dart';
 
 import 'package:moneymanager/ui/views/base_view.dart';
 import 'package:moneymanager/ui/widgets/app_drawer.dart';
 import 'package:moneymanager/ui/widgets/common_widgets/app_fab.dart';
-import 'package:overlay_container/overlay_container.dart';
+import 'package:moneymanager/ui/widgets/home_view_widgets/empty_transaction_widget.dart';
+import 'package:moneymanager/ui/widgets/home_view_widgets/month_year_picker_widget.dart';
+import 'package:moneymanager/ui/widgets/home_view_widgets/summary_widget.dart';
 
 class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BaseView<HomeModel>(
-      onModelReady: (model) async => model.init(),
+      onModelReady: (model) async => await model.init(),
       builder: (context, model, child) => Scaffold(
-        appBar: getAppBar(model.appBarTitle, model),
+        appBar: buildAppBar(model.appBarTitle, model),
         drawer: AppDrawer(context),
         floatingActionButton: AppFAB(),
-        body: Stack(
-          children: <Widget>[
-            ListView(
-                children: model.transactions.map((e) => Text(e.day)).toList()),
-            model.isCollabsed
-                ? buildOverlayPicker(model.isCollabsed, model, context)
-                : Container(),
-          ],
-        ),
+        body: model.state == ViewState.Busy
+            ? Center(child: CircularProgressIndicator())
+            : Stack(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      SummaryWidget(
+                        income: 3000,
+                        expense: 400,
+                      ),
+                      model.transactions.length == 0
+                          ? EmptyTransactionsWidget()
+                          : Flexible(
+                              child: ListView(
+                                padding: EdgeInsets.all(8),
+                                children: model.transactions
+                                    .map((e) => Text(e.day))
+                                    .toList(),
+                              ),
+                            ),
+                    ],
+                  ),
+                  model.isCollabsed
+                      ? buildOverlayPicker(model.isCollabsed, model, context)
+                      : Container(),
+                ],
+              ),
       ),
     );
   }
 
   buildOverlayPicker(showOrHide, HomeModel model, BuildContext context) {
-    return OverlayContainer(
-        show: showOrHide,
-        // Let's position this overlay to the right of the button.
-        position: OverlayContainerPosition(
-          // Left position.
-          0,
-          // Bottom position.
-          0,
-        ),
-        // The content inside the overlay.
-        child: Container(
-          height: 200,
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.only(top: 5),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Colors.grey[300],
-                blurRadius: 3,
-                spreadRadius: 10,
-              )
-            ],
-          ),
-          child: buildGridView(model),
-        ));
+    return PickMonthAndYearOverlay(
+        model: model, showOrHide: showOrHide, context: context);
   }
 
-  Widget buildGridView(HomeModel model) {
-    return GridView.count(
-      crossAxisCount: 6,
-      // Generate 100 widgets that display their index in the List.
-      children: model.months.map((month) {
-        return InkWell(
-          onTap: () {
-            model.monthClicked(month);
-          },
-          child: Center(
-            child: Text(
-              month,
-              style: TextStyle(
-                color: model.getColor(month),
-              ),
-            ),
-          ),
-        );
-      }).toList(),
-    );
-  }
-
-  getAppBar(String title, HomeModel model) {
+  buildAppBar(String title, HomeModel model) {
     return AppBar(
       title: InkWell(
         onTap: () {
