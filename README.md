@@ -1,5 +1,5 @@
 # moneymanager
 
-Expenses tracker app.
+Expenses tracker app
 
 ## Getting Started
