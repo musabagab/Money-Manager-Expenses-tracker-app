@@ -20,6 +20,20 @@ class AppDatabase extends _$AppDatabase {
 
   Future<List<Transaction>> getAllTransactions() => select(transactions).get();
 
+  Stream<List<Transaction>> watchAllTrans() {
+    // Wrap the whole select statement in parenthesis
+    return (select(transactions)
+          // Statements like orderBy and where return void => the need to use a cascading ".." operator
+          ..orderBy(
+            ([
+              // Primary sorting by due date
+              (t) => OrderingTerm(expression: t.memo, mode: OrderingMode.asc),
+            ]),
+          ))
+        // watch the whole select statement
+        .watch();
+  }
+
   Future insertTransaction(Transaction transaction) =>
       into(transactions).insert(transaction);
 

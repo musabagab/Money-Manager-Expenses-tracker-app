@@ -56,7 +56,7 @@ class HomeView extends StatelessWidget {
   }
 
   buildList(List<Transaction> transactions) {
-    return transactions.length != 0
+    return transactions.length == 0
         ? EmptyTransactionsWidget()
         : TransactionsListView(
             transactions: transactions,

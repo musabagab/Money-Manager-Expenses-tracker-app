@@ -14,37 +14,40 @@ class TransactionsListView extends StatelessWidget {
         padding: EdgeInsets.all(8),
         children: transactions.map((e) {
           return Card(
-            child: Container(
-              padding: EdgeInsets.all(8),
-              child: Column(
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        e.day + '/' + e.month,
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      ),
-                      Text(
-                        e.type + ": " + e.amount.toString(),
-                        style: TextStyle(fontWeight: FontWeight.w300),
-                      )
-                    ],
-                  ),
-                  Divider(
-                    thickness: 1,
-                  ),
-                  ListTile(
-                    leading: CircleAvatar(
-                      child: Icon(Icons.payment),
-                      foregroundColor: Colors.white,
-                      backgroundColor: Colors.purple,
+            child: InkWell(
+              onTap: () {},
+              child: Container(
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          e.day + '/' + e.month,
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                        Text(
+                          e.type + ": " + e.amount.toString(),
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        )
+                      ],
                     ),
-                    title: Text(e.memo),
-                    trailing: Text(e.amount.toString(),
-                        style: TextStyle(fontSize: 20)),
-                  )
-                ],
+                    Divider(
+                      thickness: 1,
+                    ),
+                    ListTile(
+                      leading: CircleAvatar(
+                        child: Icon(Icons.payment),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.purple,
+                      ),
+                      title: Text(e.memo),
+                      trailing: Text(e.amount.toString(),
+                          style: TextStyle(fontSize: 20)),
+                    )
+                  ],
+                ),
               ),
             ),
           );
