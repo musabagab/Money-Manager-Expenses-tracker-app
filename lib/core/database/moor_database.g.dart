@@ -438,8 +438,24 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   $TransactionsTable _transactions;
   $TransactionsTable get transactions =>
       _transactions ??= $TransactionsTable(this);
+  TransactionDao _transactionDao;
+  TransactionDao get transactionDao =>
+      _transactionDao ??= TransactionDao(this as AppDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
   List<DatabaseSchemaEntity> get allSchemaEntities => [transactions];
+}
+
+// **************************************************************************
+// DaoGenerator
+// **************************************************************************
+
+mixin _$TransactionDaoMixin on DatabaseAccessor<AppDatabase> {
+  $TransactionsTable get transactions => attachedDatabase.transactions;
+  Selectable<Transaction> getTransactionForMonth(String month) {
+    return customSelect('SELECT * FROM transactions WHERE month = :month',
+        variables: [Variable.withString(month)],
+        readsFrom: {transactions}).map(transactions.mapFromRow);
+  }
 }

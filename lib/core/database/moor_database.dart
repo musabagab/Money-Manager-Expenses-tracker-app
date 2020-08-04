@@ -11,28 +11,30 @@ class Transactions extends Table {
   IntColumn get amount => integer()(); // 300 or 200
 }
 
-@UseMoor(tables: [Transactions])
+@UseMoor(tables: [Transactions], daos: [TransactionDao])
 class AppDatabase extends _$AppDatabase {
   AppDatabase()
       : super(FlutterQueryExecutor.inDatabaseFolder(
             path: "db.sqlite", logStatements: true));
   int get schemaVersion => 1;
+}
+
+// Denote which tables this DAO can access
+@UseDao(
+  tables: [Transactions],
+  queries: {
+    // this method will be generated
+    'getTransactionForMonth': 'SELECT * FROM transactions WHERE month = :month'
+  },
+)
+class TransactionDao extends DatabaseAccessor<AppDatabase>
+    with _$TransactionDaoMixin {
+  final AppDatabase db;
+
+  // Called by the AppDatabase class
+  TransactionDao(this.db) : super(db);
 
   Future<List<Transaction>> getAllTransactions() => select(transactions).get();
-
-  Stream<List<Transaction>> watchAllTrans() {
-    // Wrap the whole select statement in parenthesis
-    return (select(transactions)
-          // Statements like orderBy and where return void => the need to use a cascading ".." operator
-          ..orderBy(
-            ([
-              // Primary sorting by due date
-              (t) => OrderingTerm(expression: t.memo, mode: OrderingMode.asc),
-            ]),
-          ))
-        // watch the whole select statement
-        .watch();
-  }
 
   Future insertTransaction(Transaction transaction) =>
       into(transactions).insert(transaction);

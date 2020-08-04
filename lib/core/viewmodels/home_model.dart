@@ -31,11 +31,10 @@ class HomeModel extends BaseModel {
   String selectedYear;
   int selectedMonthIndex; // from month list above
 
-  monthClicked(String clickedMonth) {
+  monthClicked(String clickedMonth) async {
     selectedMonthIndex = months.indexOf(clickedMonth);
-
     appBarTitle = clickedMonth;
-
+    transactions = await _moorDatabaseService.getAllTransactions(appBarTitle);
     titleClicked();
   }
 
@@ -56,12 +55,12 @@ class HomeModel extends BaseModel {
 
   init() async {
     selectedMonthIndex = DateTime.now().month - 1;
-    appBarTitle = months[DateTime.now().month - 1];
+    appBarTitle = months[selectedMonthIndex];
 
     setState(ViewState.Busy);
     notifyListeners();
 
-    transactions = await _moorDatabaseService.getAllTransactions();
+    transactions = await _moorDatabaseService.getAllTransactions(appBarTitle);
 
     setState(ViewState.Idle);
     notifyListeners();

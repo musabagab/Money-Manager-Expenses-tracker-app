@@ -3,15 +3,12 @@ import 'package:moneymanager/core/database/moor_database.dart';
 class MoorDatabaseService {
   final AppDatabase _database = AppDatabase();
 
-  getAllTransactions() async {
+  getAllTransactions(String month) async {
     List<Transaction> allTrans = List<Transaction>();
 
-    await _database.watchAllTrans().listen((event) {
-      event.forEach((element) {
-        allTrans.add(element);
-      });
-    });
+    TransactionDao transactionDao = _database.transactionDao;
 
+    allTrans = await transactionDao.getTransactionForMonth(month).get();
     return allTrans;
   }
 
