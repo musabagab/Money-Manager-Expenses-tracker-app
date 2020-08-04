@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:moneymanager/core/viewmodels/details_model.dart';
 
 import 'core/services/authentication_service.dart';
 
@@ -12,4 +13,5 @@ void setupLocator() {
   locator.registerLazySingleton(() => MoorDatabaseService());
 
   locator.registerFactory(() => HomeModel());
+  locator.registerFactory(() => DetailsModel());
 }

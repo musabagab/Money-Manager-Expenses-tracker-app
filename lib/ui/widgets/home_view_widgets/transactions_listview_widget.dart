@@ -12,10 +12,12 @@ class TransactionsListView extends StatelessWidget {
     return Flexible(
       child: ListView(
         padding: EdgeInsets.all(8),
-        children: transactions.map((e) {
+        children: transactions.map((transaction) {
           return Card(
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, "details", arguments: transaction);
+              },
               child: Container(
                 padding: EdgeInsets.all(8),
                 child: Column(
@@ -24,11 +26,13 @@ class TransactionsListView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          e.day + '/' + e.month,
+                          transaction.day + '/' + transaction.month,
                           style: TextStyle(fontWeight: FontWeight.w300),
                         ),
                         Text(
-                          e.type + ": " + e.amount.toString(),
+                          transaction.type +
+                              ": " +
+                              transaction.amount.toString(),
                           style: TextStyle(fontWeight: FontWeight.w300),
                         )
                       ],
@@ -42,8 +46,8 @@ class TransactionsListView extends StatelessWidget {
                         foregroundColor: Colors.white,
                         backgroundColor: Colors.purple,
                       ),
-                      title: Text(e.memo),
-                      trailing: Text(e.amount.toString(),
+                      title: Text(transaction.memo),
+                      trailing: Text(transaction.amount.toString(),
                           style: TextStyle(fontSize: 20)),
                     )
                   ],

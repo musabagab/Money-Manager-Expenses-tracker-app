@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moneymanager/core/database/moor_database.dart';
+import 'package:moneymanager/ui/views/details_view.dart';
 import 'package:moneymanager/ui/views/spash_view.dart';
 
 const String initialRoute = "login";
@@ -8,11 +10,9 @@ class Router {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => SpashView());
-      // case 'login':
-      //   return MaterialPageRoute(builder: (_) => LoginView());
-      // case 'post':
-      //   var post = settings.arguments as Post;
-      //   return MaterialPageRoute(builder: (_) => PostView(post: post));
+      case 'details':
+        var transaction = settings.arguments as Transaction;
+        return MaterialPageRoute(builder: (_) => DetailsView(transaction));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
