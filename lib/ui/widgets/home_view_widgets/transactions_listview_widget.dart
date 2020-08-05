@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moneymanager/core/database/moor_database.dart';
+import 'package:moneymanager/core/viewmodels/home_model.dart';
 
 class TransactionsListView extends StatelessWidget {
   final List<Transaction> transactions;
+  final HomeModel model;
 
-  const TransactionsListView({Key key, this.transactions}) : super(key: key);
+  const TransactionsListView(
+    this.transactions,
+    this.model,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +47,8 @@ class TransactionsListView extends StatelessWidget {
                     ),
                     ListTile(
                       leading: CircleAvatar(
-                        child: Icon(Icons.payment),
-                        foregroundColor: Colors.white,
-                        backgroundColor: Colors.purple,
+                        child: model.getIconForCategory(
+                            transaction.categoryindex, transaction.type),
                       ),
                       title: Text(transaction.memo),
                       trailing: Text(transaction.amount.toString(),

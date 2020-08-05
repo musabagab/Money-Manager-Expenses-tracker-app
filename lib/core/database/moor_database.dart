@@ -5,10 +5,10 @@ class Transactions extends Table {
   TextColumn get type => text()(); //expense /income
   TextColumn get day => text()(); // day
   TextColumn get month => text()(); // month => feb (example)
-  TextColumn get assetpath => text()(); // asset path / photo
   TextColumn get memo => text()(); // asset path / photo
   IntColumn get id => integer().autoIncrement()();
   IntColumn get amount => integer()(); // 300 or 200
+  IntColumn get categoryindex => integer()(); // 0,1,2,...etc
 }
 
 @UseMoor(tables: [Transactions], daos: [TransactionDao])

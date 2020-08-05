@@ -11,18 +11,18 @@ class Transaction extends DataClass implements Insertable<Transaction> {
   final String type;
   final String day;
   final String month;
-  final String assetpath;
   final String memo;
   final int id;
   final int amount;
+  final int categoryindex;
   Transaction(
       {@required this.type,
       @required this.day,
       @required this.month,
-      @required this.assetpath,
       @required this.memo,
       @required this.id,
-      @required this.amount});
+      @required this.amount,
+      @required this.categoryindex});
   factory Transaction.fromData(Map<String, dynamic> data, GeneratedDatabase db,
       {String prefix}) {
     final effectivePrefix = prefix ?? '';
@@ -33,11 +33,11 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       day: stringType.mapFromDatabaseResponse(data['${effectivePrefix}day']),
       month:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}month']),
-      assetpath: stringType
-          .mapFromDatabaseResponse(data['${effectivePrefix}assetpath']),
       memo: stringType.mapFromDatabaseResponse(data['${effectivePrefix}memo']),
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id']),
       amount: intType.mapFromDatabaseResponse(data['${effectivePrefix}amount']),
+      categoryindex: intType
+          .mapFromDatabaseResponse(data['${effectivePrefix}categoryindex']),
     );
   }
   @override
@@ -52,9 +52,6 @@ class Transaction extends DataClass implements Insertable<Transaction> {
     if (!nullToAbsent || month != null) {
       map['month'] = Variable<String>(month);
     }
-    if (!nullToAbsent || assetpath != null) {
-      map['assetpath'] = Variable<String>(assetpath);
-    }
     if (!nullToAbsent || memo != null) {
       map['memo'] = Variable<String>(memo);
     }
@@ -63,6 +60,9 @@ class Transaction extends DataClass implements Insertable<Transaction> {
     }
     if (!nullToAbsent || amount != null) {
       map['amount'] = Variable<int>(amount);
+    }
+    if (!nullToAbsent || categoryindex != null) {
+      map['categoryindex'] = Variable<int>(categoryindex);
     }
     return map;
   }
@@ -73,13 +73,13 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       day: day == null && nullToAbsent ? const Value.absent() : Value(day),
       month:
           month == null && nullToAbsent ? const Value.absent() : Value(month),
-      assetpath: assetpath == null && nullToAbsent
-          ? const Value.absent()
-          : Value(assetpath),
       memo: memo == null && nullToAbsent ? const Value.absent() : Value(memo),
       id: id == null && nullToAbsent ? const Value.absent() : Value(id),
       amount:
           amount == null && nullToAbsent ? const Value.absent() : Value(amount),
+      categoryindex: categoryindex == null && nullToAbsent
+          ? const Value.absent()
+          : Value(categoryindex),
     );
   }
 
@@ -90,10 +90,10 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       type: serializer.fromJson<String>(json['type']),
       day: serializer.fromJson<String>(json['day']),
       month: serializer.fromJson<String>(json['month']),
-      assetpath: serializer.fromJson<String>(json['assetpath']),
       memo: serializer.fromJson<String>(json['memo']),
       id: serializer.fromJson<int>(json['id']),
       amount: serializer.fromJson<int>(json['amount']),
+      categoryindex: serializer.fromJson<int>(json['categoryindex']),
     );
   }
   @override
@@ -103,10 +103,10 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       'type': serializer.toJson<String>(type),
       'day': serializer.toJson<String>(day),
       'month': serializer.toJson<String>(month),
-      'assetpath': serializer.toJson<String>(assetpath),
       'memo': serializer.toJson<String>(memo),
       'id': serializer.toJson<int>(id),
       'amount': serializer.toJson<int>(amount),
+      'categoryindex': serializer.toJson<int>(categoryindex),
     };
   }
 
@@ -114,18 +114,18 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           {String type,
           String day,
           String month,
-          String assetpath,
           String memo,
           int id,
-          int amount}) =>
+          int amount,
+          int categoryindex}) =>
       Transaction(
         type: type ?? this.type,
         day: day ?? this.day,
         month: month ?? this.month,
-        assetpath: assetpath ?? this.assetpath,
         memo: memo ?? this.memo,
         id: id ?? this.id,
         amount: amount ?? this.amount,
+        categoryindex: categoryindex ?? this.categoryindex,
       );
   @override
   String toString() {
@@ -133,10 +133,10 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           ..write('type: $type, ')
           ..write('day: $day, ')
           ..write('month: $month, ')
-          ..write('assetpath: $assetpath, ')
           ..write('memo: $memo, ')
           ..write('id: $id, ')
-          ..write('amount: $amount')
+          ..write('amount: $amount, ')
+          ..write('categoryindex: $categoryindex')
           ..write(')'))
         .toString();
   }
@@ -149,9 +149,9 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           $mrjc(
               month.hashCode,
               $mrjc(
-                  assetpath.hashCode,
-                  $mrjc(
-                      memo.hashCode, $mrjc(id.hashCode, amount.hashCode)))))));
+                  memo.hashCode,
+                  $mrjc(id.hashCode,
+                      $mrjc(amount.hashCode, categoryindex.hashCode)))))));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
@@ -159,60 +159,60 @@ class Transaction extends DataClass implements Insertable<Transaction> {
           other.type == this.type &&
           other.day == this.day &&
           other.month == this.month &&
-          other.assetpath == this.assetpath &&
           other.memo == this.memo &&
           other.id == this.id &&
-          other.amount == this.amount);
+          other.amount == this.amount &&
+          other.categoryindex == this.categoryindex);
 }
 
 class TransactionsCompanion extends UpdateCompanion<Transaction> {
   final Value<String> type;
   final Value<String> day;
   final Value<String> month;
-  final Value<String> assetpath;
   final Value<String> memo;
   final Value<int> id;
   final Value<int> amount;
+  final Value<int> categoryindex;
   const TransactionsCompanion({
     this.type = const Value.absent(),
     this.day = const Value.absent(),
     this.month = const Value.absent(),
-    this.assetpath = const Value.absent(),
     this.memo = const Value.absent(),
     this.id = const Value.absent(),
     this.amount = const Value.absent(),
+    this.categoryindex = const Value.absent(),
   });
   TransactionsCompanion.insert({
     @required String type,
     @required String day,
     @required String month,
-    @required String assetpath,
     @required String memo,
     this.id = const Value.absent(),
     @required int amount,
+    @required int categoryindex,
   })  : type = Value(type),
         day = Value(day),
         month = Value(month),
-        assetpath = Value(assetpath),
         memo = Value(memo),
-        amount = Value(amount);
+        amount = Value(amount),
+        categoryindex = Value(categoryindex);
   static Insertable<Transaction> custom({
     Expression<String> type,
     Expression<String> day,
     Expression<String> month,
-    Expression<String> assetpath,
     Expression<String> memo,
     Expression<int> id,
     Expression<int> amount,
+    Expression<int> categoryindex,
   }) {
     return RawValuesInsertable({
       if (type != null) 'type': type,
       if (day != null) 'day': day,
       if (month != null) 'month': month,
-      if (assetpath != null) 'assetpath': assetpath,
       if (memo != null) 'memo': memo,
       if (id != null) 'id': id,
       if (amount != null) 'amount': amount,
+      if (categoryindex != null) 'categoryindex': categoryindex,
     });
   }
 
@@ -220,18 +220,18 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
       {Value<String> type,
       Value<String> day,
       Value<String> month,
-      Value<String> assetpath,
       Value<String> memo,
       Value<int> id,
-      Value<int> amount}) {
+      Value<int> amount,
+      Value<int> categoryindex}) {
     return TransactionsCompanion(
       type: type ?? this.type,
       day: day ?? this.day,
       month: month ?? this.month,
-      assetpath: assetpath ?? this.assetpath,
       memo: memo ?? this.memo,
       id: id ?? this.id,
       amount: amount ?? this.amount,
+      categoryindex: categoryindex ?? this.categoryindex,
     );
   }
 
@@ -247,9 +247,6 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     if (month.present) {
       map['month'] = Variable<String>(month.value);
     }
-    if (assetpath.present) {
-      map['assetpath'] = Variable<String>(assetpath.value);
-    }
     if (memo.present) {
       map['memo'] = Variable<String>(memo.value);
     }
@@ -258,6 +255,9 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
     }
     if (amount.present) {
       map['amount'] = Variable<int>(amount.value);
+    }
+    if (categoryindex.present) {
+      map['categoryindex'] = Variable<int>(categoryindex.value);
     }
     return map;
   }
@@ -268,10 +268,10 @@ class TransactionsCompanion extends UpdateCompanion<Transaction> {
           ..write('type: $type, ')
           ..write('day: $day, ')
           ..write('month: $month, ')
-          ..write('assetpath: $assetpath, ')
           ..write('memo: $memo, ')
           ..write('id: $id, ')
-          ..write('amount: $amount')
+          ..write('amount: $amount, ')
+          ..write('categoryindex: $categoryindex')
           ..write(')'))
         .toString();
   }
@@ -318,18 +318,6 @@ class $TransactionsTable extends Transactions
     );
   }
 
-  final VerificationMeta _assetpathMeta = const VerificationMeta('assetpath');
-  GeneratedTextColumn _assetpath;
-  @override
-  GeneratedTextColumn get assetpath => _assetpath ??= _constructAssetpath();
-  GeneratedTextColumn _constructAssetpath() {
-    return GeneratedTextColumn(
-      'assetpath',
-      $tableName,
-      false,
-    );
-  }
-
   final VerificationMeta _memoMeta = const VerificationMeta('memo');
   GeneratedTextColumn _memo;
   @override
@@ -363,9 +351,23 @@ class $TransactionsTable extends Transactions
     );
   }
 
+  final VerificationMeta _categoryindexMeta =
+      const VerificationMeta('categoryindex');
+  GeneratedIntColumn _categoryindex;
+  @override
+  GeneratedIntColumn get categoryindex =>
+      _categoryindex ??= _constructCategoryindex();
+  GeneratedIntColumn _constructCategoryindex() {
+    return GeneratedIntColumn(
+      'categoryindex',
+      $tableName,
+      false,
+    );
+  }
+
   @override
   List<GeneratedColumn> get $columns =>
-      [type, day, month, assetpath, memo, id, amount];
+      [type, day, month, memo, id, amount, categoryindex];
   @override
   $TransactionsTable get asDslTable => this;
   @override
@@ -395,12 +397,6 @@ class $TransactionsTable extends Transactions
     } else if (isInserting) {
       context.missing(_monthMeta);
     }
-    if (data.containsKey('assetpath')) {
-      context.handle(_assetpathMeta,
-          assetpath.isAcceptableOrUnknown(data['assetpath'], _assetpathMeta));
-    } else if (isInserting) {
-      context.missing(_assetpathMeta);
-    }
     if (data.containsKey('memo')) {
       context.handle(
           _memoMeta, memo.isAcceptableOrUnknown(data['memo'], _memoMeta));
@@ -415,6 +411,14 @@ class $TransactionsTable extends Transactions
           amount.isAcceptableOrUnknown(data['amount'], _amountMeta));
     } else if (isInserting) {
       context.missing(_amountMeta);
+    }
+    if (data.containsKey('categoryindex')) {
+      context.handle(
+          _categoryindexMeta,
+          categoryindex.isAcceptableOrUnknown(
+              data['categoryindex'], _categoryindexMeta));
+    } else if (isInserting) {
+      context.missing(_categoryindexMeta);
     }
     return context;
   }

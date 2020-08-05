@@ -35,6 +35,7 @@ dependencies:
   moor_flutter: ^3.1.0
    # Specify the moor "core" package too
   moor: ^3.2.0
+  font_awesome_flutter: ^8.8.1
 
 dev_dependencies:
   flutter_test:

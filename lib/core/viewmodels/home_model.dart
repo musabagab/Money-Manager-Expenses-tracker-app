@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/core/database/moor_database.dart';
 import 'package:moneymanager/core/enums/viewstate.dart';
+import 'package:moneymanager/core/services/category_icon_service.dart';
 import 'package:moneymanager/core/services/moordatabase_service.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
@@ -9,6 +10,9 @@ import '../../locator.dart';
 class HomeModel extends BaseModel {
   final MoorDatabaseService _moorDatabaseService =
       locator<MoorDatabaseService>();
+
+  final CategoryIconService _categoryIconService =
+      locator<CategoryIconService>();
 
   List months = [
     'Jan',
@@ -64,5 +68,23 @@ class HomeModel extends BaseModel {
 
     setState(ViewState.Idle);
     notifyListeners();
+  }
+
+  Icon getIconForCategory(int index, String type) {
+    if (type == 'income') {
+      final categoryIcon = _categoryIconService.incomeList.elementAt(index);
+
+      return Icon(
+        categoryIcon.icon,
+        color: categoryIcon.color,
+      );
+    } else {
+      final categoryIcon = _categoryIconService.expenseList.elementAt(index);
+
+      return Icon(
+        categoryIcon.icon,
+        color: categoryIcon.color,
+      );
+    }
   }
 }

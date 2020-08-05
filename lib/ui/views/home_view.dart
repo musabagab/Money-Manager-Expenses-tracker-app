@@ -31,7 +31,7 @@ class HomeView extends StatelessWidget {
                         income: 3000,
                         expense: 400,
                       ),
-                      buildList(model.transactions),
+                      buildList(model.transactions, model),
                     ],
                   ),
                   model.isCollabsed
@@ -55,11 +55,9 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  buildList(List<Transaction> transactions) {
+  buildList(List<Transaction> transactions, HomeModel model) {
     return transactions.length == 0
         ? EmptyTransactionsWidget()
-        : TransactionsListView(
-            transactions: transactions,
-          );
+        : TransactionsListView(transactions, model);
   }
 }
