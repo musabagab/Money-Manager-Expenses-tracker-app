@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moneymanager/core/models/category.dart';
 
 class CategoryIconService {
-  //* FIRST : INCOME LIST
-  final incomeList = {
+  //* FIRST : EXPENSE LIST
+  final expenseList = {
     Category(0, "Food", FontAwesomeIcons.table, Colors.green),
     Category(1, "Bills", FontAwesomeIcons.moneyBill, Colors.blue),
     Category(2, "Transportaion", FontAwesomeIcons.car, Colors.blueAccent),
@@ -22,8 +22,13 @@ class CategoryIconService {
     Category(14, "Travel", FontAwesomeIcons.bus, Colors.blueGrey),
     Category(15, "Pet", FontAwesomeIcons.dog, Colors.deepPurpleAccent),
   };
-  //* SECOND : EXPENSE LIST
-  final expenseList = {
-    Category(0, "Food", FontAwesomeIcons.table, Colors.green),
+  //* SECOND : INCOME LIST
+  final incomeList = {
+    Category(0, "Salary", FontAwesomeIcons.wallet, Colors.green),
+    Category(1, "Awards", FontAwesomeIcons.moneyCheck, Colors.blue),
+    Category(2, "Grants", FontAwesomeIcons.gifts, Colors.blueAccent),
+    Category(3, "Rental", FontAwesomeIcons.home, Colors.brown),
+    Category(4, "Investment", FontAwesomeIcons.piggyBank, Colors.cyanAccent),
+    Category(5, "Lottery", FontAwesomeIcons.dice, Colors.deepOrange),
   };
 }

@@ -47,6 +47,11 @@ class TransactionsListView extends StatelessWidget {
                     ),
                     ListTile(
                       leading: CircleAvatar(
+                        radius: 25,
+                        foregroundColor: model
+                            .getIconForCategory(
+                                transaction.categoryindex, transaction.type)
+                            .color,
                         child: model.getIconForCategory(
                             transaction.categoryindex, transaction.type),
                       ),

@@ -3,6 +3,7 @@ import 'package:moneymanager/core/database/moor_database.dart';
 import 'package:moneymanager/core/viewmodels/details_model.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
 import 'package:moneymanager/ui/views/base_view.dart';
+import 'package:moneymanager/ui/widgets/details_view_widgets/details_table.dart';
 
 class DetailsView extends StatelessWidget {
   final Transaction transaction;
@@ -15,7 +16,13 @@ class DetailsView extends StatelessWidget {
               appBar: AppBar(
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[Text('Details'), Icon(Icons.delete)],
+                  children: <Widget>[
+                    Text('Details'),
+                    InkWell(
+                      child: Icon(Icons.delete),
+                      onTap: () {},
+                    ),
+                  ],
                 ),
               ),
               body: Padding(
@@ -42,86 +49,7 @@ class DetailsView extends StatelessWidget {
                           thickness: 1,
                         ),
                         UIHelper.verticalSpaceSmall(),
-                        Table(
-                          columnWidths: {1: FixedColumnWidth(250)},
-                          children: [
-                            TableRow(
-                              children: [
-                                Text(
-                                  "Categories",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                Text(
-                                  transaction.type,
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                Text(
-                                  "Money",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                Text(
-                                  transaction.amount.toString(),
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                Text(
-                                  "Date",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                Text(
-                                  transaction.day + "." + transaction.month,
-                                  textAlign: TextAlign.justify,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            TableRow(
-                              children: [
-                                Text(
-                                  "Memo",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w200,
-                                    fontSize: 18,
-                                  ),
-                                ),
-                                Text(
-                                  transaction.memo,
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 20,
-                                  ),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
+                        DetailsTable(transaction: transaction),
                       ],
                     ),
                   ),

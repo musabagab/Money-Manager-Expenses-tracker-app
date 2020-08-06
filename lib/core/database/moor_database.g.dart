@@ -462,4 +462,16 @@ mixin _$TransactionDaoMixin on DatabaseAccessor<AppDatabase> {
         variables: [Variable.withString(month)],
         readsFrom: {transactions}).map(transactions.mapFromRow);
   }
+
+  Selectable<int> sumTheMoneyForMonth(String month, String type) {
+    return customSelect(
+        'SELECT SUM(amount) FROM transactions WHERE month = :month AND type = :type',
+        variables: [
+          Variable.withString(month),
+          Variable.withString(type)
+        ],
+        readsFrom: {
+          transactions
+        }).map((QueryRow row) => row.readInt('SUM(amount)'));
+  }
 }

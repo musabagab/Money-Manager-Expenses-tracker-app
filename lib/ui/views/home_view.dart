@@ -28,8 +28,8 @@ class HomeView extends StatelessWidget {
                   Column(
                     children: <Widget>[
                       SummaryWidget(
-                        income: 3000,
-                        expense: 400,
+                        income: model.incomeSum,
+                        expense: model.expenseSum,
                       ),
                       buildList(model.transactions, model),
                     ],

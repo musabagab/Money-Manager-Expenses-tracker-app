@@ -35,10 +35,15 @@ class HomeModel extends BaseModel {
   String selectedYear;
   int selectedMonthIndex; // from month list above
 
+  int expenseSum = 0;
+  int incomeSum = 0;
+
   monthClicked(String clickedMonth) async {
     selectedMonthIndex = months.indexOf(clickedMonth);
     appBarTitle = clickedMonth;
     transactions = await _moorDatabaseService.getAllTransactions(appBarTitle);
+    expenseSum = await _moorDatabaseService.getExpenseSum(appBarTitle);
+    incomeSum = await _moorDatabaseService.getIncomeSum(appBarTitle);
     titleClicked();
   }
 
@@ -61,11 +66,17 @@ class HomeModel extends BaseModel {
     selectedMonthIndex = DateTime.now().month - 1;
     appBarTitle = months[selectedMonthIndex];
 
+    expenseSum = await _moorDatabaseService.getExpenseSum(appBarTitle);
+    incomeSum = await _moorDatabaseService.getIncomeSum(appBarTitle);
+
+    print("Expense : $expenseSum");
+    print("Income : $incomeSum");
+    // show the loading bar
     setState(ViewState.Busy);
     notifyListeners();
 
     transactions = await _moorDatabaseService.getAllTransactions(appBarTitle);
-
+    // show the list
     setState(ViewState.Idle);
     notifyListeners();
   }

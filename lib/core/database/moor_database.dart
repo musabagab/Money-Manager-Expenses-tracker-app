@@ -24,7 +24,9 @@ class AppDatabase extends _$AppDatabase {
   tables: [Transactions],
   queries: {
     // this method will be generated
-    'getTransactionForMonth': 'SELECT * FROM transactions WHERE month = :month'
+    'getTransactionForMonth': 'SELECT * FROM transactions WHERE month = :month',
+    'sumTheMoneyForMonth':
+        'SELECT SUM(amount) FROM transactions WHERE month = :month AND type = :type'
   },
 )
 class TransactionDao extends DatabaseAccessor<AppDatabase>

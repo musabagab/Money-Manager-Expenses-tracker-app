@@ -12,11 +12,45 @@ class MoorDatabaseService {
     return allTrans;
   }
 
-  Future<int> sumStream(Stream<int> stream) async {
-    var sum = 0;
-    await for (var value in stream) {
-      sum += value;
+  getIncomeSum(String month) async {
+    List<int> list = await _database.transactionDao
+        .sumTheMoneyForMonth(month, "income")
+        .get();
+
+    int sumOfIncome = 0;
+
+    if (list == null && list.length == 0) {
+      return 0;
     }
-    return sum;
+
+    list.forEach((element) {
+      if (element == null) {
+        return;
+      }
+      sumOfIncome += element;
+    });
+
+    return sumOfIncome;
+  }
+
+  getExpenseSum(String month) async {
+    List<int> list = await _database.transactionDao
+        .sumTheMoneyForMonth(month, "expense")
+        .get();
+
+    int sumOfExpense = 0;
+
+    if (list == null && list.length == 0) {
+      return 0;
+    }
+
+    list.forEach((element) {
+      if (element == null) {
+        return;
+      }
+      sumOfExpense += element;
+    });
+
+    return sumOfExpense;
   }
 }
