@@ -10,7 +10,9 @@ class AppFAB extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-      onPressed: () {},
+      onPressed: () {
+        Navigator.of(context).pushNamed("newtransaction");
+      },
       child: Icon(Icons.add, color: Colors.black38),
       backgroundColor: backgroundColor,
     );
