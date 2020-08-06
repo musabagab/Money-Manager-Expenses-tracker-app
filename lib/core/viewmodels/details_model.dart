@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:moneymanager/core/database/moor_database.dart';
 import 'package:moneymanager/core/services/category_icon_service.dart';
+import 'package:moneymanager/core/services/moordatabase_service.dart';
 import 'package:moneymanager/core/viewmodels/base_model.dart';
 
 import '../../locator.dart';
@@ -7,6 +9,9 @@ import '../../locator.dart';
 class DetailsModel extends BaseModel {
   final CategoryIconService _categoryIconService =
       locator<CategoryIconService>();
+
+  final MoorDatabaseService _moorDatabaseService =
+      locator<MoorDatabaseService>();
 
   Icon getIconForCategory(int index, String type) {
     if (type == 'income') {
@@ -32,5 +37,9 @@ class DetailsModel extends BaseModel {
     } else {
       return _categoryIconService.expenseList.elementAt(index).name;
     }
+  }
+
+  Future deleteTransacation(Transaction transaction) async {
+    return await _moorDatabaseService.deleteTransaction(transaction);
   }
 }

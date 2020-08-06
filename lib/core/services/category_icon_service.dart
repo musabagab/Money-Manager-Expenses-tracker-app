@@ -8,7 +8,7 @@ class CategoryIconService {
     Category(0, "Food", FontAwesomeIcons.table, Colors.green),
     Category(1, "Bills", FontAwesomeIcons.moneyBill, Colors.blue),
     Category(2, "Transportaion", FontAwesomeIcons.car, Colors.blueAccent),
-    Category(3, "Home", FontAwesomeIcons.home, Colors.brown),
+    Category(3, "Home", FontAwesomeIcons.houseDamage, Colors.brown),
     Category(4, "Entertainment", FontAwesomeIcons.gamepad, Colors.cyanAccent),
     Category(5, "Shopping", FontAwesomeIcons.shoppingBag, Colors.deepOrange),
     Category(6, "Clothing", FontAwesomeIcons.tshirt, Colors.deepOrangeAccent),
@@ -25,9 +25,9 @@ class CategoryIconService {
   //* SECOND : INCOME LIST
   final incomeList = {
     Category(0, "Salary", FontAwesomeIcons.wallet, Colors.green),
-    Category(1, "Awards", FontAwesomeIcons.moneyCheck, Colors.blue),
-    Category(2, "Grants", FontAwesomeIcons.gifts, Colors.blueAccent),
-    Category(3, "Rental", FontAwesomeIcons.home, Colors.brown),
+    Category(1, "Awards", FontAwesomeIcons.moneyCheck, Colors.amber),
+    Category(2, "Grants", FontAwesomeIcons.gifts, Colors.lightGreen),
+    Category(3, "Rental", FontAwesomeIcons.home, Colors.yellow),
     Category(4, "Investment", FontAwesomeIcons.piggyBank, Colors.cyanAccent),
     Category(5, "Lottery", FontAwesomeIcons.dice, Colors.deepOrange),
   };

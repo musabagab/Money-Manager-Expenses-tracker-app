@@ -53,4 +53,8 @@ class MoorDatabaseService {
 
     return sumOfExpense;
   }
+
+  Future deleteTransaction(Transaction transaction) async {
+    return await _database.transactionDao.deleteTransaction(transaction);
+  }
 }

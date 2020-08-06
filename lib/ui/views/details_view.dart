@@ -14,13 +14,22 @@ class DetailsView extends StatelessWidget {
     return BaseView<DetailsModel>(
         builder: (context, model, child) => Scaffold(
               appBar: AppBar(
+                leading: InkWell(
+                  child: Icon(Icons.arrow_back),
+                  onTap: () {
+                    Navigator.of(context).pop(false);
+                  },
+                ),
                 title: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Text('Details'),
                     InkWell(
                       child: Icon(Icons.delete),
-                      onTap: () {},
+                      onTap: () async {
+                        await model.deleteTransacation(transaction);
+                        Navigator.of(context).pop(true);
+                      },
                     ),
                   ],
                 ),
@@ -35,6 +44,9 @@ class DetailsView extends StatelessWidget {
                       children: <Widget>[
                         ListTile(
                           leading: CircleAvatar(
+                              radius: 25,
+                              backgroundColor:
+                                  Colors.blueAccent.withOpacity(.15),
                               child: model.getIconForCategory(
                                   transaction.categoryindex, transaction.type)),
                           title: Text(

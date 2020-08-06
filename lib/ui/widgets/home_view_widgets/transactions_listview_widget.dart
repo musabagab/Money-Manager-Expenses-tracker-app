@@ -21,7 +21,16 @@ class TransactionsListView extends StatelessWidget {
           return Card(
             child: InkWell(
               onTap: () {
-                Navigator.pushNamed(context, "details", arguments: transaction);
+                Navigator.pushNamed(context, "details", arguments: transaction)
+                    .then((value) => {
+                          if (value != null)
+                            {
+                              if (value)
+                                {print("Transcation deleted"), model.init()}
+                              else
+                                {print("Not delelted")}
+                            }
+                        });
               },
               child: Container(
                 padding: EdgeInsets.all(8),
@@ -48,10 +57,7 @@ class TransactionsListView extends StatelessWidget {
                     ListTile(
                       leading: CircleAvatar(
                         radius: 25,
-                        foregroundColor: model
-                            .getIconForCategory(
-                                transaction.categoryindex, transaction.type)
-                            .color,
+                        backgroundColor: Colors.blue.withOpacity(.15),
                         child: model.getIconForCategory(
                             transaction.categoryindex, transaction.type),
                       ),
