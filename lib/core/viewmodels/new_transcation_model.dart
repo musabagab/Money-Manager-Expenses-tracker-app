@@ -7,16 +7,16 @@ class NewTransactionModel extends BaseModel {
   final CategoryIconService _categoryIconService =
       locator<CategoryIconService>();
 
-  int selectedItem = 1;
+  int selectedCategory = 2; // 1=>income,2=>expense
 
   void changeSelectedItem(int newItemIndex) {
-    selectedItem = newItemIndex;
+    selectedCategory = newItemIndex;
 
     notifyListeners();
   }
 
   List<Category> loadCategoriesIcons() {
-    if (selectedItem == 1) {
+    if (selectedCategory == 1) {
       // load income
       List<Category> s = _categoryIconService.incomeList.toList();
       return s;

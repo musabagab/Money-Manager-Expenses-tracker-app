@@ -11,20 +11,21 @@ class NewTransactionView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
           title: TransactionTypeSpinner(
-              model.selectedItem, model.changeSelectedItem),
+              model.selectedCategory, model.changeSelectedItem),
         ),
         body: SafeArea(
           child: GridView.count(
             crossAxisCount: 3,
-            shrinkWrap: true,
             childAspectRatio: 1.2,
-            padding: EdgeInsets.all(8),
             children: model
                 .loadCategoriesIcons()
                 .map((e) => Card(
                     elevation: 4,
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed("inserttransaction",
+                            arguments: [e, model.selectedCategory]);
+                      },
                       child: Container(
                         padding: EdgeInsets.all(4),
                         child: Column(
@@ -33,10 +34,12 @@ class NewTransactionView extends StatelessWidget {
                             Text(e.name),
                             UIHelper.verticalSpaceSmall(),
                             CircleAvatar(
-                              radius: 25,
-                              child: Icon(
-                                e.icon,
-                                size: 20,
+                              radius: 30,
+                              child: Center(
+                                child: Icon(
+                                  e.icon,
+                                  size: 25,
+                                ),
                               ),
                             )
                           ],

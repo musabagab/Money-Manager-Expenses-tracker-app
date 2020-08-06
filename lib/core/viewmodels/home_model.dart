@@ -62,6 +62,11 @@ class HomeModel extends BaseModel {
     }
   }
 
+  void closeMonthPicker() {
+    isCollabsed = false;
+    notifyListeners();
+  }
+
   init() async {
     selectedMonthIndex = DateTime.now().month - 1;
     appBarTitle = months[selectedMonthIndex];
