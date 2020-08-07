@@ -20,7 +20,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       @required this.day,
       @required this.month,
       @required this.memo,
-      @required this.id,
+      this.id,
       @required this.amount,
       @required this.categoryindex});
   factory Transaction.fromData(Map<String, dynamic> data, GeneratedDatabase db,

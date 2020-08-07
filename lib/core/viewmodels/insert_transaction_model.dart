@@ -80,7 +80,7 @@ class InsertTransactionModel extends BaseModel {
 
     if (memo.length == 0 || amount.length == 0) {
       Toast.show("Please fill all the fields!", context,
-          duration: Toast.LENGTH_SHORT, gravity: Toast.BOTTOM);
+          duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
       return;
     }
 
