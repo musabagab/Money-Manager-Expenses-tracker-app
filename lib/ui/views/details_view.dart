@@ -26,8 +26,36 @@ class DetailsView extends StatelessWidget {
                     InkWell(
                       child: Icon(Icons.delete),
                       onTap: () async {
-                        await model.deleteTransacation(transaction);
-                        Navigator.of(context).pop(true);
+                        await showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Delete"),
+                                content: Text(
+                                    "Are you sure do you want to delete this transaction"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    child: Text(
+                                      "Delete",
+                                    ),
+                                    onPressed: () async {
+                                      await model
+                                          .deleteTransacation(transaction);
+                                      // hide dialog
+                                      Navigator.of(context).pop();
+                                      // exit detailsscreen
+                                      Navigator.of(context).pop(true);
+                                    },
+                                  ),
+                                  FlatButton(
+                                    child: Text("Cancel"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop(false);
+                                    },
+                                  )
+                                ],
+                              );
+                            });
                       },
                     ),
                   ],

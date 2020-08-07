@@ -31,13 +31,7 @@ class _TransactionsListViewState extends State<TransactionsListView> {
                     .then((value) => {
                           if (value != null)
                             {
-                              if (value)
-                                {
-                                  print("Transcation deleted"),
-                                  widget.model.init()
-                                }
-                              else
-                                {print("Not delelted")}
+                              if (value) {widget.model.init()}
                             }
                         });
               },

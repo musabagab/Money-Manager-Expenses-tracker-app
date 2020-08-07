@@ -20,8 +20,17 @@ class InsertTranscationView extends StatelessWidget {
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Column(
+            child: ListView(
               children: <Widget>[
+                ListTile(
+                  title: Text(category.name),
+                  leading: CircleAvatar(
+                      child: Icon(
+                    category.icon,
+                    size: 20,
+                  )),
+                ),
+                UIHelper.verticalSpaceMedium(),
                 buildTextField(model.memoController, 'Memo:',
                     "Enter a memo for your transcation", Icons.edit, false),
                 UIHelper.verticalSpaceMedium(),
@@ -42,11 +51,15 @@ class InsertTranscationView extends StatelessWidget {
                 Divider(
                   thickness: 2,
                 ),
-                RaisedButton(
-                  child: Text(model.getSelectedDate()),
-                  onPressed: () async {
-                    await model.selectDate(context);
-                  },
+                Container(
+                  width: 20,
+                  height: 50,
+                  child: RaisedButton(
+                    child: Text(model.getSelectedDate()),
+                    onPressed: () async {
+                      await model.selectDate(context);
+                    },
+                  ),
                 ),
                 UIHelper.verticalSpaceLarge(),
                 Align(
