@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/core/database/moor_database.dart';
 import 'package:moneymanager/ui/views/details_view.dart';
+import 'package:moneymanager/ui/views/home_view.dart';
 import 'package:moneymanager/ui/views/insert_transaction_view.dart';
 import 'package:moneymanager/ui/views/new_transaction_view.dart';
 import 'package:moneymanager/ui/views/spash_view.dart';
@@ -12,6 +13,8 @@ class Router {
     switch (settings.name) {
       case '/':
         return MaterialPageRoute(builder: (_) => SpashView());
+      case 'home':
+        return MaterialPageRoute(builder: (_) => HomeView());
       case 'newtransaction':
         return MaterialPageRoute(builder: (_) => NewTransactionView());
       case 'inserttransaction':

@@ -20,7 +20,7 @@ class DetailsCard extends StatelessWidget {
             ListTile(
               leading: CircleAvatar(
                   radius: 25,
-                  backgroundColor: Colors.blueAccent.withOpacity(.15),
+                  backgroundColor: Colors.blueAccent.withOpacity(.1),
                   child: model.getIconForCategory(
                       transaction.categoryindex, transaction.type)),
               title: Text(

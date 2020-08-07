@@ -62,7 +62,7 @@ class DetailsTable extends StatelessWidget {
               ),
             ),
             Text(
-              transaction.day + "." + transaction.month,
+              transaction.day + ", " + transaction.month,
               textAlign: TextAlign.justify,
               style: TextStyle(
                 fontWeight: FontWeight.w400,

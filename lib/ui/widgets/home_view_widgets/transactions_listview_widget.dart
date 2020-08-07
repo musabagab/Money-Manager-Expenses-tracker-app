@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:moneymanager/core/database/moor_database.dart';
 import 'package:moneymanager/core/viewmodels/home_model.dart';
 
-class TransactionsListView extends StatelessWidget {
+class TransactionsListView extends StatefulWidget {
   final List<Transaction> transactions;
   final HomeModel model;
 
@@ -13,11 +14,16 @@ class TransactionsListView extends StatelessWidget {
   );
 
   @override
+  _TransactionsListViewState createState() => _TransactionsListViewState();
+}
+
+class _TransactionsListViewState extends State<TransactionsListView> {
+  @override
   Widget build(BuildContext context) {
     return Flexible(
       child: ListView(
         padding: EdgeInsets.all(8),
-        children: transactions.map((transaction) {
+        children: widget.transactions.map((transaction) {
           return Card(
             child: InkWell(
               onTap: () {
@@ -26,7 +32,10 @@ class TransactionsListView extends StatelessWidget {
                           if (value != null)
                             {
                               if (value)
-                                {print("Transcation deleted"), model.init()}
+                                {
+                                  print("Transcation deleted"),
+                                  widget.model.init()
+                                }
                               else
                                 {print("Not delelted")}
                             }
@@ -40,7 +49,7 @@ class TransactionsListView extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          transaction.day + '/' + transaction.month,
+                          transaction.day + ', ' + transaction.month,
                           style: TextStyle(fontWeight: FontWeight.w300),
                         ),
                         Text(
@@ -57,8 +66,8 @@ class TransactionsListView extends StatelessWidget {
                     ListTile(
                       leading: CircleAvatar(
                         radius: 25,
-                        backgroundColor: Colors.blue.withOpacity(.15),
-                        child: model.getIconForCategory(
+                        backgroundColor: Colors.blue.withOpacity(.1),
+                        child: widget.model.getIconForCategory(
                             transaction.categoryindex, transaction.type),
                       ),
                       title: Text(transaction.memo),

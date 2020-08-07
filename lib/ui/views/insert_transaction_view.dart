@@ -1,61 +1,68 @@
 import 'package:flutter/material.dart';
 import 'package:moneymanager/core/models/category.dart';
 import 'package:moneymanager/core/viewmodels/insert_transaction_model.dart';
+import 'package:moneymanager/ui/shared/app_colors.dart';
 import 'package:moneymanager/ui/shared/ui_helpers.dart';
 import 'package:moneymanager/ui/views/base_view.dart';
 
-class InsertTranscationView extends StatefulWidget {
+class InsertTranscationView extends StatelessWidget {
   final Category category;
   final int selectedCategory;
   InsertTranscationView(this.category, this.selectedCategory);
-
-  @override
-  _InsertTranscationViewState createState() => _InsertTranscationViewState();
-}
-
-class _InsertTranscationViewState extends State<InsertTranscationView> {
-  String _value = '';
-
-  Future _selectDate() async {
-    DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: new DateTime.now(),
-        firstDate: DateTime(2020),
-        lastDate: DateTime.now());
-    if (picked != null) setState(() => _value = picked.toString());
-
-    print(picked.day);
-    print(picked.month);
-  }
-
   @override
   Widget build(BuildContext context) {
-    TextEditingController memoController = TextEditingController();
-    TextEditingController amountController = TextEditingController();
-
     return BaseView<InsertTransactionModel>(
+      onModelReady: (model) => model.init(selectedCategory, category.index),
       builder: (context, model, child) => Scaffold(
         appBar: AppBar(
-          title:
-              widget.selectedCategory == 1 ? Text('Income') : Text('Expense'),
+          title: selectedCategory == 1 ? Text('Income') : Text('Expense'),
         ),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
-                buildTextField(memoController, 'Memo:',
+                buildTextField(model.memoController, 'Memo:',
                     "Enter a memo for your transcation", Icons.edit, false),
                 UIHelper.verticalSpaceMedium(),
                 buildTextField(
-                    amountController,
+                    model.amountController,
                     'Amount:',
                     "Enter a the amount for the transcation",
                     Icons.attach_money,
                     true),
-                RaisedButton(onPressed: () async {
-                  await _selectDate();
-                })
+                UIHelper.verticalSpaceMedium(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'SELECT DATE:',
+                    style: TextStyle(fontStyle: FontStyle.italic, fontSize: 16),
+                  ),
+                ),
+                Divider(
+                  thickness: 2,
+                ),
+                RaisedButton(
+                  child: Text(model.getSelectedDate()),
+                  onPressed: () async {
+                    await model.selectDate(context);
+                  },
+                ),
+                UIHelper.verticalSpaceLarge(),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: RaisedButton(
+                    child: Text(
+                      'ADD',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    color: backgroundColor,
+                    textColor: Colors.black,
+                    onPressed: () async {
+                      await model.addTransaction(context);
+                    },
+                  ),
+                )
               ],
             ),
           ),
