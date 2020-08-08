@@ -61,4 +61,8 @@ class MoorDatabaseService {
   Future insertTransaction(Transaction transaction) async {
     return await _database.transactionDao.insertTransaction(transaction);
   }
+
+  Future updateTransaction(Transaction transaction) async {
+    return await _database.transactionDao.updateTransaction(transaction);
+  }
 }

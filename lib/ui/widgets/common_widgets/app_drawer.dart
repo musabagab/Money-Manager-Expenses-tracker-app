@@ -25,19 +25,10 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text('Item 1'),
+            title: Text('Chart'),
+            leading: Icon(Icons.pie_chart),
             onTap: () {
-              // Update the state of the app.
-              // ...
-              Navigator.of(context).pop();
-            },
-          ),
-          ListTile(
-            title: Text('Item 2'),
-            onTap: () {
-              // Update the state of the app.
-              // ...
-              Navigator.of(context).pop();
+              Navigator.of(context).pushNamed("chart");
             },
           ),
         ],

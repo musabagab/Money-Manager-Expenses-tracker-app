@@ -19,7 +19,7 @@ class DetailsTable extends StatelessWidget {
             Text(
               "Category",
               style: TextStyle(
-                fontWeight: FontWeight.w200,
+                fontWeight: FontWeight.w300,
                 fontSize: 18,
               ),
             ),
@@ -38,7 +38,7 @@ class DetailsTable extends StatelessWidget {
             Text(
               "Money",
               style: TextStyle(
-                fontWeight: FontWeight.w200,
+                fontWeight: FontWeight.w300,
                 fontSize: 18,
               ),
             ),
@@ -57,7 +57,7 @@ class DetailsTable extends StatelessWidget {
             Text(
               "Date",
               style: TextStyle(
-                fontWeight: FontWeight.w200,
+                fontWeight: FontWeight.w300,
                 fontSize: 18,
               ),
             ),
@@ -76,7 +76,7 @@ class DetailsTable extends StatelessWidget {
             Text(
               "Memo",
               style: TextStyle(
-                fontWeight: FontWeight.w200,
+                fontWeight: FontWeight.w300,
                 fontSize: 18,
               ),
             ),
