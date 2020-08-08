@@ -65,4 +65,10 @@ class MoorDatabaseService {
   Future updateTransaction(Transaction transaction) async {
     return await _database.transactionDao.updateTransaction(transaction);
   }
+
+  getAllTransactionsForType(String month, String type) async {
+    return await _database.transactionDao
+        .getAllTransactionsForType(month, type)
+        .get();
+  }
 }

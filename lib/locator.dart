@@ -3,6 +3,7 @@ import 'package:moneymanager/core/viewmodels/details_model.dart';
 import 'package:moneymanager/core/viewmodels/edit_model.dart';
 import 'package:moneymanager/core/viewmodels/insert_transaction_model.dart';
 import 'package:moneymanager/core/viewmodels/new_transcation_model.dart';
+import 'package:moneymanager/core/viewmodels/piechart_model.dart';
 
 import 'core/services/category_icon_service.dart';
 import 'core/services/moordatabase_service.dart';
@@ -19,4 +20,5 @@ void setupLocator() {
   locator.registerFactory(() => EditModel());
   locator.registerFactory(() => NewTransactionModel());
   locator.registerFactory(() => InsertTransactionModel());
+  locator.registerFactory(() => PieChartModel());
 }

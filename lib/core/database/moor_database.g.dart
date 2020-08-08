@@ -20,7 +20,7 @@ class Transaction extends DataClass implements Insertable<Transaction> {
       @required this.day,
       @required this.month,
       @required this.memo,
-      this.id,
+      @required this.id,
       @required this.amount,
       @required this.categoryindex});
   factory Transaction.fromData(Map<String, dynamic> data, GeneratedDatabase db,
@@ -473,5 +473,12 @@ mixin _$TransactionDaoMixin on DatabaseAccessor<AppDatabase> {
         readsFrom: {
           transactions
         }).map((QueryRow row) => row.readInt('SUM(amount)'));
+  }
+
+  Selectable<Transaction> getAllTransactionsForType(String month, String type) {
+    return customSelect(
+        'SELECT * FROM transactions WHERE month = :month AND type = :type',
+        variables: [Variable.withString(month), Variable.withString(type)],
+        readsFrom: {transactions}).map(transactions.mapFromRow);
   }
 }
