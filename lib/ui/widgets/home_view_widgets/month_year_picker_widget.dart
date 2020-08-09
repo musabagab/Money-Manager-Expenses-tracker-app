@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:moneymanager/core/viewmodels/home_model.dart';
 import 'package:overlay_container/overlay_container.dart';
 
-class PickMonthAndYearOverlay extends StatelessWidget {
+class PickMonthOverlay extends StatelessWidget {
   final HomeModel model;
   final BuildContext context;
   final bool showOrHide;
 
-  const PickMonthAndYearOverlay(
-      {Key key, this.model, this.context, this.showOrHide})
+  const PickMonthOverlay({Key key, this.model, this.context, this.showOrHide})
       : super(key: key);
 
   @override

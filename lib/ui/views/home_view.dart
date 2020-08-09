@@ -35,7 +35,7 @@ class HomeView extends StatelessWidget {
                     ],
                   ),
                   model.isCollabsed
-                      ? PickMonthAndYearOverlay(
+                      ? PickMonthOverlay(
                           model: model,
                           showOrHide: model.isCollabsed,
                           context: context)
