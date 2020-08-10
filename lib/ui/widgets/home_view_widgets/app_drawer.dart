@@ -35,10 +35,10 @@ class AppDrawer extends StatelessWidget {
             thickness: 1,
           ),
           ListTile(
-            title: Text('Reminders'),
+            title: Text('Reminder'),
             leading: Icon(Icons.notifications),
             onTap: () {
-              Navigator.of(context).pushNamed("chart");
+              Navigator.of(context).pushNamed("reminder");
             },
           ),
           Divider(

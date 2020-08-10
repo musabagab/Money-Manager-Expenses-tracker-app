@@ -39,6 +39,9 @@ dependencies:
   toast: ^0.1.5
   pie_chart: ^3.1.1
   chips_choice: ^1.2.0
+  flutter_local_notifications: ^0.8.4+3
+  shared_preferences: ^0.5.8
+
 
 
 dev_dependencies:
