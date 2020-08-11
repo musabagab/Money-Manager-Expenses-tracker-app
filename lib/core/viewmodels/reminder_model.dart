@@ -6,6 +6,7 @@ import 'package:moneymanager/core/viewmodels/base_model.dart';
 
 import '../../locator.dart';
 
+// rreminder model
 class ReminderModel extends BaseModel {
   final NotificationService _notificationService =
       locator<NotificationService>();
