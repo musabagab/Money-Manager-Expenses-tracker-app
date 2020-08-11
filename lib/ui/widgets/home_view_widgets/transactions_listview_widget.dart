@@ -22,6 +22,7 @@ class _TransactionsListViewState extends State<TransactionsListView> {
   Widget build(BuildContext context) {
     return Flexible(
       child: ListView(
+        controller: widget.model.scrollController,
         padding: EdgeInsets.all(8),
         children: widget.transactions.map((transaction) {
           return Card(
@@ -65,8 +66,11 @@ class _TransactionsListViewState extends State<TransactionsListView> {
                             transaction.categoryindex, transaction.type),
                       ),
                       title: Text(transaction.memo),
-                      trailing: Text(transaction.amount.toString(),
-                          style: TextStyle(fontSize: 20)),
+                      trailing: transaction.type == 'expense'
+                          ? Text('- ' + transaction.amount.toString(),
+                              style: TextStyle(fontSize: 20))
+                          : Text(transaction.amount.toString(),
+                              style: TextStyle(fontSize: 20)),
                     )
                   ],
                 ),

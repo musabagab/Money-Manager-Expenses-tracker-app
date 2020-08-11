@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:moneymanager/core/database/moor_database.dart';
 import 'package:moneymanager/core/enums/viewstate.dart';
 import 'package:moneymanager/core/services/category_icon_service.dart';
@@ -13,6 +14,10 @@ class HomeModel extends BaseModel {
 
   final CategoryIconService _categoryIconService =
       locator<CategoryIconService>();
+
+  ScrollController scrollController =
+      new ScrollController(); // set controller on scrolling
+  bool show = true;
 
   List months = [
     'Jan',
@@ -68,6 +73,8 @@ class HomeModel extends BaseModel {
   }
 
   init() async {
+    handleScroll();
+
     selectedMonthIndex = DateTime.now().month - 1;
     appBarTitle = months[selectedMonthIndex];
 
@@ -83,6 +90,29 @@ class HomeModel extends BaseModel {
     transactions = await _moorDatabaseService.getAllTransactions(appBarTitle);
     // show the list
     setState(ViewState.Idle);
+    notifyListeners();
+  }
+
+  void handleScroll() async {
+    scrollController.addListener(() {
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        hideFloationButton();
+      }
+      if (scrollController.position.userScrollDirection ==
+          ScrollDirection.forward) {
+        showFloationButton();
+      }
+    });
+  }
+
+  void showFloationButton() {
+    show = true;
+    notifyListeners();
+  }
+
+  void hideFloationButton() {
+    show = false;
     notifyListeners();
   }
 
