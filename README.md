@@ -1,6 +1,6 @@
 <p><strong>Money manager: Expense Tracker app [Flutter]</strong></p>
 <p><strong>&nbsp;</strong></p>
-<p>All of your expenses in one place, we help you track your financial activity efficiently.</p>
+<p>All of your expenses in one place, we help you track your financial activity efficiently</p>
 <p>&nbsp;</p>
 <p><strong>Key Features: </strong></p>
 <ul>
